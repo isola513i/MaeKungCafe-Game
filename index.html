@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>MaeKung Cafe</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<header class="app-header">
+			<h1 class="app-title">MaeKung Cafe</h1>
+			<div class="coin-counter" aria-live="polite">
+				<span class="coin-icon" aria-hidden="true">🪙</span>
+				Coins:
+				<span id="coin-value" class="coin-value">0</span>
+				<div
+					id="coin-float-layer"
+					class="float-layer coin-float-layer"
+					aria-hidden="true"
+				></div>
+			</div>
+			<button
+				id="bgm-toggle"
+				class="btn btn--bgm"
+				type="button"
+				aria-pressed="false"
+				aria-label="Toggle background music"
+				title="Toggle background music"
+			>
+				<span class="bgm-icon" aria-hidden="true">🎵</span>
+				<span class="bgm-label">Music</span>
+			</button>
+			<button
+				id="reset-save"
+				class="btn btn--reset"
+				type="button"
+				aria-label="Reset game"
+				title="Reset game (wipes coins, unlocks, upgrades)"
+			>
+				<span aria-hidden="true">↺</span>
+				<span class="btn--reset-label">Reset Game</span>
+			</button>
+		</header>
+
+		<main class="layout">
+			<section
+				class="panel action-panel"
+				id="action-panel"
+				aria-label="Kitchen"
+			>
+				<h2 class="panel-title">Kitchen</h2>
+
+				<div class="order-queue-wrap">
+					<h3 class="subpanel-title">Orders</h3>
+					<div
+						id="order-queue"
+						class="order-queue"
+						aria-live="polite"
+						aria-label="Customer order queue"
+					></div>
+				</div>
+
+				<div id="stations-container" class="stations-container"></div>
+			</section>
+
+			<section class="panel shop-panel" aria-label="Shop">
+				<h2 class="panel-title">Shop</h2>
+				<ul class="shop-list">
+					<li>
+						<button id="buy-beans" class="btn btn--shop" type="button">
+							<span class="shop-emoji" aria-hidden="true">🫘</span>
+							<span class="shop-info">
+								<span class="shop-name">Premium Beans</span>
+								<span class="shop-desc">+50% perfect reward (×1.5)</span>
+								<span class="shop-meta"
+									>Lv. <span id="beans-level">0</span></span
+								>
+							</span>
+							<span class="shop-cost"><span id="beans-cost">50</span> 🪙</span>
+						</button>
+					</li>
+					<li>
+						<button
+							id="unlock-waffle"
+							data-kind="waffle"
+							class="btn btn--shop"
+							type="button"
+						>
+							<span class="shop-emoji" aria-hidden="true">🧇</span>
+							<span class="shop-info">
+								<span class="shop-name">Waffle Maker</span>
+								<span class="shop-desc">Slow + small zone, +30 per order</span>
+								<span class="shop-meta">Unlock station</span>
+							</span>
+							<span class="shop-cost">150 🪙</span>
+						</button>
+					</li>
+					<li>
+						<button
+							id="unlock-smoothie"
+							data-kind="smoothie"
+							class="btn btn--shop"
+							type="button"
+						>
+							<span class="shop-emoji" aria-hidden="true">🥤</span>
+							<span class="shop-info">
+								<span class="shop-name">Smoothie Blender</span>
+								<span class="shop-desc">Super fast, +40 per order</span>
+								<span class="shop-meta">Unlock station</span>
+							</span>
+							<span class="shop-cost">300 🪙</span>
+						</button>
+					</li>
+					<li>
+						<button id="hire-assistant" class="btn btn--shop" type="button">
+							<span class="shop-emoji" aria-hidden="true">🧑‍🍳</span>
+							<span class="shop-info">
+								<span class="shop-name">Hire Assistant</span>
+								<span class="shop-desc">+5 coins / sec each</span>
+								<span class="shop-meta"
+									><span id="assistant-count">0</span> hired</span
+								>
+							</span>
+							<span class="shop-cost">300 🪙</span>
+						</button>
+					</li>
+				</ul>
+			</section>
+		</main>
+
+		<script type="module" src="/src/main.ts"></script>
+	</body>
+</html>

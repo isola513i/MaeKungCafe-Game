@@ -1,0 +1,1105 @@
+/* =====================================================================
+   MaeKung Cafe — Kawaii Edition
+   Mirrors design.md: pastel palette, pill buttons, chunky candy bars,
+   hard-shadow cards, bouncy floating text.
+   ===================================================================== */
+
+:root {
+	--bg: #fff0f5; /* Soft Lavender Blush / Cotton Candy Pink */
+	--panel: #ffffff; /* Pure White cards */
+	--accent-success: #a7f3d0; /* Minty Pastel Green */
+	--accent-warn: #fda4af; /* Soft Bubblegum Pink */
+	--text: #57534e; /* Soft Brown / Charcoal */
+	--coin: #fde047; /* Bright Lemon Yellow */
+
+	--border-w: 3px;
+	--radius-card: 24px;
+	--radius-pill: 999px;
+	--shadow-card: 6px 6px 0 rgba(87, 83, 78, 0.2);
+	--shadow-btn: 0 4px 0 var(--text);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	min-height: 100vh;
+	background: var(--bg);
+	/* Subtle polka-dot kawaii background */
+	background-image:
+		radial-gradient(
+			circle at 20% 30%,
+			rgba(253, 164, 175, 0.18) 0 8px,
+			transparent 9px
+		),
+		radial-gradient(
+			circle at 75% 65%,
+			rgba(167, 243, 208, 0.22) 0 10px,
+			transparent 11px
+		),
+		radial-gradient(
+			circle at 50% 90%,
+			rgba(253, 224, 71, 0.18) 0 6px,
+			transparent 7px
+		);
+	background-size:
+		240px 240px,
+		280px 280px,
+		200px 200px;
+	color: var(--text);
+	font-family: "Mali", "Itim", "Sniglet", "Comic Sans MS", cursive;
+	font-size: 16px;
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+/* --------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------- */
+
+.app-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 18px 28px;
+	background: var(--panel);
+	border: var(--border-w) solid var(--text);
+	border-radius: var(--radius-card);
+	box-shadow: var(--shadow-card);
+	flex-wrap: wrap;
+}
+
+.app-title {
+	margin: 0;
+	font-size: clamp(28px, 4vw, 40px);
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	color: var(--text);
+	text-shadow:
+		2px 2px 0 #fff,
+		4px 4px 0 var(--accent-warn);
+	animation: floaty 3s ease-in-out infinite;
+}
+
+@keyframes floaty {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-4px);
+	}
+}
+
+.coin-counter {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-size: clamp(20px, 2.4vw, 26px);
+	font-weight: 700;
+	padding: 8px 20px;
+	background: #fffef5;
+	border: var(--border-w) solid var(--text);
+	border-radius: var(--radius-pill);
+	box-shadow: 0 4px 0 var(--text);
+}
+
+.coin-icon {
+	font-size: 1.2em;
+	animation: floaty 2.4s ease-in-out infinite;
+}
+
+.coin-value {
+	display: inline-block;
+	min-width: 2ch;
+	text-align: right;
+	color: #b45309;
+	background: var(--coin);
+	padding: 0 10px;
+	border-radius: 12px;
+	border: 2px solid var(--text);
+}
+
+/* --------------------------------------------------------------------
+   Layout
+   -------------------------------------------------------------------- */
+
+.layout {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px;
+}
+
+@media (max-width: 720px) {
+	.layout {
+		grid-template-columns: 1fr;
+	}
+	body {
+		padding: 16px;
+	}
+}
+
+.panel {
+	background: var(--panel);
+	border: var(--border-w) solid var(--text);
+	border-radius: var(--radius-card);
+	box-shadow: var(--shadow-card);
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+}
+
+.panel-title {
+	margin: 0;
+	font-size: 24px;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+	text-shadow: 1px 1px 0 var(--accent-success);
+}
+
+/* --------------------------------------------------------------------
+   Station
+   -------------------------------------------------------------------- */
+
+.station {
+	position: relative;
+	background: #fffafc;
+	border: var(--border-w) solid var(--text);
+	border-radius: 20px;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	transition: background 200ms ease;
+}
+
+.station[data-status="cooldown"] {
+	background: #ffe4e8;
+	animation: shake-once 280ms ease;
+}
+
+@keyframes shake-once {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+	25% {
+		transform: translateX(-4px);
+	}
+	75% {
+		transform: translateX(4px);
+	}
+}
+
+.station-head {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.station-emoji {
+	font-size: 28px;
+	display: inline-block;
+	animation: floaty 2.6s ease-in-out infinite;
+}
+
+.recipe-selector {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	align-self: flex-start;
+	padding: 6px;
+	background: rgba(255, 255, 255, 0.65);
+	border: 3px solid var(--text);
+	border-radius: 999px;
+	box-shadow: 0 4px 0 rgba(87, 83, 78, 0.16);
+}
+
+.recipe-pill {
+	font-family: inherit;
+	font-size: 14px;
+	font-weight: 700;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 14px;
+	color: var(--text);
+	background: transparent;
+	border: 2px solid transparent;
+	border-radius: 999px;
+	cursor: pointer;
+	transition:
+		transform 120ms ease,
+		background 160ms ease,
+		border-color 160ms ease,
+		box-shadow 160ms ease;
+}
+
+.recipe-pill:hover:not(:disabled) {
+	transform: translateY(-1px);
+	background: rgba(255, 255, 255, 0.72);
+}
+
+.recipe-pill:disabled {
+	cursor: default;
+	opacity: 0.7;
+}
+
+.station[data-kind="coffee"] .recipe-pill--active {
+	background: var(--theme);
+	color: #fff;
+	border-color: var(--theme-strong);
+	box-shadow: 0 3px 0 var(--theme-strong);
+}
+
+/* --------------------------------------------------------------------
+   Progress bar (chunky candy bar)
+   -------------------------------------------------------------------- */
+
+.progress {
+	position: relative;
+	height: 36px;
+	background: #ffffff;
+	border: var(--border-w) solid var(--text);
+	border-radius: 20px;
+	overflow: hidden;
+	box-shadow: inset 0 3px 0 rgba(87, 83, 78, 0.08);
+}
+
+.progress-zone {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: var(--zone-start, 70%);
+	right: calc(100% - var(--zone-end, 85%));
+	background: rgba(167, 243, 208, 0.55);
+	border-left: 2px dashed var(--text);
+	border-right: 2px dashed var(--text);
+	z-index: 1;
+	pointer-events: none;
+}
+
+.progress-fill {
+	position: relative;
+	z-index: 2;
+	height: 100%;
+	width: 0%;
+	background:
+		repeating-linear-gradient(
+			45deg,
+			rgba(255, 255, 255, 0.35) 0 10px,
+			rgba(255, 255, 255, 0) 10px 20px
+		),
+		linear-gradient(90deg, #a7f3d0 0%, #fde047 60%, #fda4af 100%);
+	border-right: 2px solid var(--text);
+	box-shadow: inset 0 -3px 0 rgba(87, 83, 78, 0.18);
+}
+
+.progress-fill--reset {
+	transition: width 220ms ease;
+}
+
+/* --------------------------------------------------------------------
+   Status label
+   -------------------------------------------------------------------- */
+
+.station-status {
+	display: flex;
+	justify-content: center;
+}
+
+.status-label {
+	display: inline-block;
+	padding: 6px 16px;
+	border-radius: var(--radius-pill);
+	border: 2px solid var(--text);
+	background: #fff;
+	font-weight: 700;
+	font-size: 15px;
+	box-shadow: 0 3px 0 var(--text);
+}
+
+.status-label--idle {
+	background: #fffef5;
+}
+.status-label--good {
+	background: var(--accent-success);
+}
+.status-label--warn {
+	background: #fef3c7;
+}
+.status-label--bad {
+	background: var(--accent-warn);
+	color: #7f1d1d;
+}
+
+/* --------------------------------------------------------------------
+   Buttons (squishy game feel)
+   -------------------------------------------------------------------- */
+
+.station-actions {
+	display: flex;
+	justify-content: center;
+}
+
+.btn {
+	font-family: inherit;
+	font-weight: 700;
+	font-size: 18px;
+	color: var(--text);
+	background: #fff;
+	border: var(--border-w) solid var(--text);
+	border-radius: var(--radius-pill);
+	padding: 14px 32px;
+	cursor: pointer;
+	box-shadow: var(--shadow-btn);
+	transition:
+		transform 80ms ease,
+		box-shadow 80ms ease,
+		background 160ms ease;
+	letter-spacing: 0.01em;
+}
+
+.btn:hover:not(:disabled) {
+	transform: scale(1.05);
+}
+
+.btn:active:not(:disabled) {
+	transform: translateY(4px);
+	box-shadow: 0 0 0 var(--text);
+}
+
+/* Disabled state: dull pastel grey, flat (no squish, no shadow). */
+.btn:disabled,
+.btn.btn--disabled {
+	cursor: not-allowed;
+	background: #e7e5e4;
+	color: #a8a29e;
+	border-color: #a8a29e;
+	box-shadow: none;
+	transform: none;
+	opacity: 1;
+	filter: grayscale(0.4);
+}
+
+.btn:disabled:hover,
+.btn.btn--disabled:hover {
+	transform: none;
+}
+
+.btn:disabled:active,
+.btn.btn--disabled:active {
+	transform: none;
+	box-shadow: none;
+}
+
+.btn--primary {
+	background: var(--accent-success);
+}
+
+/* --------------------------------------------------------------------
+   Stations grid (Phase 2 multi-station)
+   -------------------------------------------------------------------- */
+
+.stations-container {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 16px;
+}
+
+@media (min-width: 980px) {
+	.stations-container {
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	}
+}
+
+/* --------------------------------------------------------------------
+   Shop list & shop buttons
+   -------------------------------------------------------------------- */
+
+.shop-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.btn--shop {
+	width: 100%;
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	align-items: center;
+	gap: 14px;
+	padding: 12px 16px;
+	text-align: left;
+	background: #fffafc;
+	border-radius: 20px;
+	font-size: 16px;
+}
+
+.shop-emoji {
+	font-size: 32px;
+	line-height: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	background: var(--bg);
+	border: 2px solid var(--text);
+	border-radius: 50%;
+}
+
+.shop-info {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+
+.shop-name {
+	font-size: 17px;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+}
+
+.shop-desc {
+	font-size: 13px;
+	opacity: 0.78;
+	font-weight: 400;
+}
+
+.shop-meta {
+	font-size: 12px;
+	opacity: 0.65;
+	font-weight: 700;
+}
+
+.shop-cost {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	font-weight: 700;
+	background: var(--coin);
+	color: #7a4b00;
+	border: 2px solid var(--text);
+	border-radius: var(--radius-pill);
+	padding: 6px 12px;
+	font-size: 15px;
+	white-space: nowrap;
+	box-shadow: 0 3px 0 var(--text);
+}
+
+.btn--shop:disabled .shop-cost,
+.btn--shop.btn--disabled .shop-cost {
+	background: #fef9c3;
+	color: #a8a29e;
+	border-color: #a8a29e;
+	box-shadow: none;
+}
+
+.btn--shop:disabled .shop-emoji,
+.btn--shop.btn--disabled .shop-emoji {
+	background: #f5f5f4;
+	border-color: #a8a29e;
+	filter: grayscale(0.6);
+}
+
+/* --------------------------------------------------------------------
+   Floating text
+   -------------------------------------------------------------------- */
+
+.float-layer {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	overflow: visible;
+}
+
+.float-text {
+	position: absolute;
+	left: 50%;
+	top: 56%;
+	transform: translate(-50%, 0);
+	font-size: 32px;
+	font-weight: 700;
+	-webkit-text-stroke: 2px var(--text);
+	text-shadow: 0 3px 0 var(--text);
+	pointer-events: none;
+	animation: floatUp 900ms cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+	--float-x: 0px;
+}
+
+.float-text--good {
+	color: var(--coin);
+}
+.float-text--warn {
+	color: #fde68a;
+}
+.float-text--bad {
+	color: var(--accent-warn);
+}
+.float-text--coin {
+	color: var(--coin);
+	font-size: 22px;
+	top: 100%;
+}
+
+/* Header coin-float layer: anchored to the coin counter so the
+   assistant's +N coin pops appear next to the balance. */
+.coin-float-layer {
+	z-index: 5;
+}
+
+@keyframes floatUp {
+	0% {
+		transform: translate(calc(-50% + var(--float-x)), 0) scale(0.6);
+		opacity: 0;
+	}
+	20% {
+		opacity: 1;
+	}
+	60% {
+		transform: translate(calc(-50% + var(--float-x)), -36px) scale(1.15);
+		opacity: 1;
+	}
+	100% {
+		transform: translate(calc(-50% + var(--float-x)), -70px) scale(1);
+		opacity: 0;
+	}
+}
+
+/* =====================================================================
+   Phase 3 — Station themes, order queue, owned shop state
+   ===================================================================== */
+
+/* Per-kind station color themes. Each kind sets three CSS vars consumed
+   by the station card, its action button, and the progress fill. */
+
+.station[data-kind="coffee"],
+.order-card[data-kind="coffee"],
+.btn--shop[data-kind="coffee"] {
+	--theme: #b08968;
+	--theme-soft: #f5e6d3;
+	--theme-strong: #8b5a2b;
+}
+
+.station[data-kind="waffle"],
+.order-card[data-kind="waffle"],
+.btn--shop[data-kind="waffle"] {
+	--theme: #f59e0b;
+	--theme-soft: #fef3c7;
+	--theme-strong: #b45309;
+}
+
+.station[data-kind="smoothie"],
+.order-card[data-kind="smoothie"],
+.btn--shop[data-kind="smoothie"] {
+	--theme: #ec4899;
+	--theme-soft: #fce7f3;
+	--theme-strong: #be185d;
+}
+
+/* Tint the station card with its theme, but let cooldown pink win. */
+.station[data-kind] {
+	background: var(--theme-soft);
+}
+
+.station[data-kind][data-status="cooldown"] {
+	background: #ffe4e8;
+}
+
+/* Themed progress fill (still keeps the candy stripes). */
+.station[data-kind] .progress-fill {
+	background:
+		repeating-linear-gradient(
+			45deg,
+			rgba(255, 255, 255, 0.4) 0 10px,
+			rgba(255, 255, 255, 0) 10px 20px
+		),
+		linear-gradient(
+			90deg,
+			var(--theme-soft) 0%,
+			var(--theme) 55%,
+			var(--theme-strong) 100%
+		);
+}
+
+/* Themed perfect zone (still dashed, but tinted toward the station). */
+.station[data-kind] .progress-zone {
+	background: color-mix(in srgb, var(--theme) 25%, transparent);
+	border-left-color: var(--theme-strong);
+	border-right-color: var(--theme-strong);
+}
+
+.station[data-kind="coffee"][data-brew-stage="milk"] {
+	background: #fffaf0;
+}
+
+.station[data-kind="coffee"][data-brew-stage="milk"] .progress-fill {
+	background:
+		repeating-linear-gradient(
+			45deg,
+			rgba(255, 255, 255, 0.55) 0 10px,
+			rgba(255, 255, 255, 0.08) 10px 20px
+		),
+		linear-gradient(90deg, #fffdf5 0%, #fef3c7 52%, #f5d0a9 100%);
+	border-right-color: #d6b48a;
+}
+
+.station[data-kind="coffee"][data-brew-stage="milk"] .progress-zone {
+	background: rgba(255, 248, 220, 0.8);
+	border-left-color: #d6b48a;
+	border-right-color: #d6b48a;
+}
+
+/* Themed Cook button. */
+.station[data-kind] .btn--primary {
+	background: var(--theme);
+	color: #fff;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.18);
+}
+
+.station[data-kind="coffee"][data-brew-stage="milk"] .btn--primary {
+	background: #fff7ed;
+	color: #9a3412;
+	border-color: #d6b48a;
+	box-shadow: 0 4px 0 #d6b48a;
+	text-shadow: none;
+}
+
+/* Themed shop unlock buttons: emoji bubble + cost chip pick up the theme. */
+.btn--shop[data-kind]:not(:disabled):not(.btn--disabled) .shop-emoji {
+	background: var(--theme-soft);
+	border-color: var(--theme-strong);
+}
+
+.btn--shop[data-kind]:not(:disabled):not(.btn--disabled) .shop-cost {
+	background: var(--theme);
+	color: #fff;
+	border-color: var(--theme-strong);
+	box-shadow: 0 3px 0 var(--theme-strong);
+}
+
+/* Owned (unlocked) shop button: stays readable, not greyed out. */
+.btn.btn--owned,
+.btn.btn--owned:disabled,
+.btn.btn--owned.btn--disabled {
+	background: #dcfce7;
+	color: #166534;
+	border-color: #166534;
+	filter: none;
+	opacity: 1;
+	box-shadow: none;
+	transform: none;
+	cursor: default;
+}
+
+.btn--shop.btn--owned .shop-cost,
+.btn--shop.btn--owned:disabled .shop-cost,
+.btn--shop.btn--owned.btn--disabled .shop-cost {
+	background: #166534;
+	color: #fff;
+	border-color: #166534;
+	box-shadow: none;
+}
+
+.btn--shop.btn--owned .shop-cost {
+	font-size: 0;
+}
+
+.btn--shop.btn--owned .shop-cost::after {
+	content: "✓ OWNED";
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 0.03em;
+}
+
+.btn--shop.btn--owned .shop-emoji {
+	background: #bbf7d0;
+	border-color: #166534;
+	filter: none;
+}
+
+/* --------------------------------------------------------------------
+   Order queue (speech-bubble cards above the kitchen)
+   -------------------------------------------------------------------- */
+
+.order-queue-wrap {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.subpanel-title {
+	margin: 0;
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--text);
+	opacity: 0.75;
+}
+
+.order-queue {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 14px;
+	min-height: 96px;
+	padding: 14px 16px 22px;
+	background: #fffafc;
+	border: 3px dashed var(--text);
+	border-radius: 18px;
+	align-items: center;
+}
+
+.order-queue:empty::before {
+	content: "Waiting for customers... 🌸";
+	flex: 1;
+	text-align: center;
+	font-size: 14px;
+	font-weight: 700;
+	opacity: 0.55;
+}
+
+.order-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+	padding: 10px 14px 8px;
+	background-color: var(--theme-soft, #fff);
+	border: 3px solid var(--text);
+	border-radius: 18px;
+	box-shadow: 0 4px 0 var(--theme-strong, var(--text));
+	min-width: 76px;
+}
+
+/* Speech-bubble tail pointing down toward the kitchen. */
+.order-card::after {
+	content: "";
+	position: absolute;
+	bottom: -8px;
+	left: 18px;
+	width: 12px;
+	height: 12px;
+	background-color: var(--theme-soft, #fff);
+	border-right: 3px solid var(--text);
+	border-bottom: 3px solid var(--text);
+	transform: rotate(45deg);
+}
+
+.order-emoji {
+	font-size: 30px;
+	line-height: 1;
+}
+
+.order-label {
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	color: var(--theme-strong, var(--text));
+	text-transform: uppercase;
+}
+
+.order-card--entering {
+	animation: orderEnter 360ms cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+}
+
+.order-card--leaving {
+	animation: orderLeave 280ms ease forwards;
+	pointer-events: none;
+}
+
+@keyframes orderEnter {
+	0% {
+		transform: translateY(-14px) scale(0.4);
+		opacity: 0;
+	}
+	60% {
+		transform: translateY(0) scale(1.15);
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(0) scale(1);
+		opacity: 1;
+	}
+}
+
+@keyframes orderLeave {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1.5);
+		opacity: 0;
+	}
+}
+
+/* =====================================================================
+   Phase 4 — Confetti burst on successful purchases
+   ===================================================================== */
+
+#confetti-root {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	overflow: visible;
+	z-index: 9999;
+}
+
+.confetti {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	border: 2px solid var(--text);
+	box-shadow: 0 2px 0 rgba(87, 83, 78, 0.25);
+	animation: confettiFly var(--dur, 1100ms) cubic-bezier(0.2, 0.7, 0.3, 1)
+		forwards;
+	will-change: transform, opacity;
+}
+
+@keyframes confettiFly {
+	0% {
+		transform: translate(-50%, -50%) rotate(0);
+		opacity: 1;
+	}
+	70% {
+		opacity: 1;
+	}
+	100% {
+		transform: translate(
+				calc(-50% + var(--dx, 0px)),
+				calc(-50% + var(--dy, -80px))
+			)
+			rotate(var(--rot, 360deg));
+		opacity: 0;
+	}
+}
+
+/* =====================================================================
+   Phase 5 — Mechanic-aware tweaks: secondary zone, hold-button polish,
+   wider order labels for the expanded menu.
+   ===================================================================== */
+
+/* Waffle's first window (Flip). Shares the .progress-zone positioning but
+   gets a contrasting blue tint so players read it as a separate beat. */
+.progress-zone.progress-zone--secondary {
+	background: rgba(59, 130, 246, 0.32);
+	border-left-color: #1d4ed8;
+	border-right-color: #1d4ed8;
+	border-left-style: dashed;
+	border-right-style: dashed;
+}
+
+.station[data-kind] .progress-zone.progress-zone--secondary {
+	background: color-mix(in srgb, #3b82f6 28%, transparent);
+	border-left-color: #1d4ed8;
+	border-right-color: #1d4ed8;
+}
+
+/* Coffee's hold button must not trigger scroll or text selection while held. */
+.station[data-mechanic="hold"] .station-action {
+	touch-action: none;
+	user-select: none;
+	-webkit-user-select: none;
+}
+
+/* Subtle pressed-look while actively holding. */
+.station[data-mechanic="hold"][data-status="brewing"] .station-action {
+	transform: translateY(2px);
+	box-shadow: 0 1px 0 var(--theme-strong, var(--text));
+	filter: brightness(0.95);
+}
+
+.station[data-kind="coffee"][data-status="steaming"] .station-action {
+	animation: milkPulse 0.9s ease-in-out infinite;
+}
+
+/* Smoothie's mash button gets a juicy bounce on each click. */
+.station[data-mechanic="mash"][data-status="active"] .station-action:active {
+	transform: scale(0.94);
+}
+
+/* Specific menu items can be longer than the old one-word labels. Give the
+   bubble a bit more horizontal room and let labels wrap to two lines. */
+.order-card {
+	min-width: 96px;
+}
+
+.order-label {
+	font-size: 11px;
+	line-height: 1.15;
+	text-align: center;
+	max-width: 100px;
+}
+
+.order-patience {
+	position: relative;
+	width: 100%;
+	height: 12px;
+	margin-top: 8px;
+	background: #fff;
+	border: 2px solid var(--text);
+	border-radius: 999px;
+	overflow: hidden;
+	box-shadow: inset 0 2px 0 rgba(87, 83, 78, 0.08);
+}
+
+.order-patience-fill {
+	height: 100%;
+	width: 100%;
+	border-radius: inherit;
+	background:
+		repeating-linear-gradient(
+			45deg,
+			rgba(255, 255, 255, 0.35) 0 8px,
+			rgba(255, 255, 255, 0) 8px 16px
+		),
+		linear-gradient(90deg, #22c55e 0%, #facc15 60%, #ef4444 100%);
+	transform-origin: left center;
+	transition:
+		width 120ms linear,
+		filter 160ms ease;
+}
+
+.order-card[data-urgency="med"] .order-patience-fill {
+	filter: saturate(1.05) brightness(0.98);
+}
+
+.order-card[data-urgency="high"] .order-patience-fill {
+	filter: saturate(1.15) brightness(0.92);
+}
+
+.order-card--angry {
+	animation: orderAngry 320ms ease forwards;
+	pointer-events: none;
+}
+
+/* --------------------------------------------------------------------
+   BGM toggle button (header)
+   -------------------------------------------------------------------- */
+
+.btn--bgm {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 14px;
+	font-size: 14px;
+	font-weight: 700;
+	background: #fef3c7;
+	color: var(--text);
+	border: 3px solid var(--text);
+	border-radius: 999px;
+	box-shadow: 0 3px 0 var(--text);
+	cursor: pointer;
+	transition:
+		transform 120ms ease,
+		box-shadow 120ms ease,
+		background 200ms ease;
+}
+
+.btn--bgm:hover {
+	background: #fde68a;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 0 var(--text);
+}
+
+.btn--bgm:active {
+	transform: translateY(2px);
+	box-shadow: 0 1px 0 var(--text);
+}
+
+.btn--bgm.btn--bgm-muted {
+	background: #e5e7eb;
+	color: #6b7280;
+}
+
+.bgm-icon {
+	font-size: 18px;
+	line-height: 1;
+}
+
+.btn--bgm:not(.btn--bgm-muted) .bgm-icon {
+	animation: bgmPulse 1.6s ease-in-out infinite;
+}
+
+.btn--reset {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 14px;
+	font-size: 13px;
+	background: #fffafc;
+	color: var(--text);
+	border-color: #d97706;
+	box-shadow: 0 3px 0 #d97706;
+	margin-left: auto;
+}
+
+.btn--reset:hover:not(:disabled) {
+	background: #fff1f2;
+	box-shadow: 0 4px 0 #d97706;
+}
+
+.btn--reset:active:not(:disabled) {
+	box-shadow: 0 1px 0 #d97706;
+}
+
+.btn--reset-label {
+	letter-spacing: 0.02em;
+}
+
+@keyframes bgmPulse {
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.18) rotate(-6deg);
+	}
+}
+
+@keyframes milkPulse {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-2px) scale(1.02);
+	}
+}
+
+@keyframes orderAngry {
+	0% {
+		transform: translateX(0) scale(1);
+		opacity: 1;
+	}
+	25% {
+		transform: translateX(-6px) rotate(-4deg);
+	}
+	50% {
+		transform: translateX(6px) rotate(4deg);
+	}
+	100% {
+		transform: translateY(14px) scale(0.8);
+		opacity: 0;
+	}
+}
